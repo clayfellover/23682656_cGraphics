@@ -1,2 +1,1 @@
-# 23682656_cGraphics
-assignment for graphics :thumb:
+assignment for computer graphics all in one little place
