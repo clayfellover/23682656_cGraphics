@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ResolveNugetPackages>false</ResolveNugetPackages>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{8C2A7C15-B6D8-3A90-A65B-50325D99A0D3}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>ALL_BUILD</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\clayw\Documents\GitHub\23682656_cGraphics\external\glfw-3.1.2\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/clayw/Documents/GitHub/23682656_cGraphics/external/glfw-3.1.2/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/clayw/Documents/GitHub/23682656_cGraphics -BC:/Users/clayw/Documents/GitHub/23682656_cGraphics/build --check-stamp-file C:/Users/clayw/Documents/GitHub/23682656_cGraphics/build/external/glfw-3.1.2/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.31\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\Program Files\CMake\share\cmake-3.31\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\FindDoxygen.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\FindThreads.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\Internal\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\WriteBasicConfigVersionFile.cmake;C:\Users\clayw\Documents\GitHub\23682656_cGraphics\external\glfw-3.1.2\cmake_uninstall.cmake.in;C:\Users\clayw\Documents\GitHub\23682656_cGraphics\external\glfw-3.1.2\docs\Doxyfile.in;C:\Users\clayw\Documents\GitHub\23682656_cGraphics\external\glfw-3.1.2\src\glfw3.pc.in;C:\Users\clayw\Documents\GitHub\23682656_cGraphics\external\glfw-3.1.2\src\glfw3Config.cmake.in;C:\Users\clayw\Documents\GitHub\23682656_cGraphics\external\glfw-3.1.2\src\glfw_config.h.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\clayw\Documents\GitHub\23682656_cGraphics\build\external\glfw-3.1.2\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/clayw/Documents/GitHub/23682656_cGraphics/external/glfw-3.1.2/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/clayw/Documents/GitHub/23682656_cGraphics -BC:/Users/clayw/Documents/GitHub/23682656_cGraphics/build --check-stamp-file C:/Users/clayw/Documents/GitHub/23682656_cGraphics/build/external/glfw-3.1.2/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-3.31\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\Program Files\CMake\share\cmake-3.31\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\FindDoxygen.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\FindThreads.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\Internal\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\WriteBasicConfigVersionFile.cmake;C:\Users\clayw\Documents\GitHub\23682656_cGraphics\external\glfw-3.1.2\cmake_uninstall.cmake.in;C:\Users\clayw\Documents\GitHub\23682656_cGraphics\external\glfw-3.1.2\docs\Doxyfile.in;C:\Users\clayw\Documents\GitHub\23682656_cGraphics\external\glfw-3.1.2\src\glfw3.pc.in;C:\Users\clayw\Documents\GitHub\23682656_cGraphics\external\glfw-3.1.2\src\glfw3Config.cmake.in;C:\Users\clayw\Documents\GitHub\23682656_cGraphics\external\glfw-3.1.2\src\glfw_config.h.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\clayw\Documents\GitHub\23682656_cGraphics\build\external\glfw-3.1.2\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Users/clayw/Documents/GitHub/23682656_cGraphics/external/glfw-3.1.2/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/clayw/Documents/GitHub/23682656_cGraphics -BC:/Users/clayw/Documents/GitHub/23682656_cGraphics/build --check-stamp-file C:/Users/clayw/Documents/GitHub/23682656_cGraphics/build/external/glfw-3.1.2/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-3.31\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\Program Files\CMake\share\cmake-3.31\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\FindDoxygen.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\FindThreads.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\Internal\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\WriteBasicConfigVersionFile.cmake;C:\Users\clayw\Documents\GitHub\23682656_cGraphics\external\glfw-3.1.2\cmake_uninstall.cmake.in;C:\Users\clayw\Documents\GitHub\23682656_cGraphics\external\glfw-3.1.2\docs\Doxyfile.in;C:\Users\clayw\Documents\GitHub\23682656_cGraphics\external\glfw-3.1.2\src\glfw3.pc.in;C:\Users\clayw\Documents\GitHub\23682656_cGraphics\external\glfw-3.1.2\src\glfw3Config.cmake.in;C:\Users\clayw\Documents\GitHub\23682656_cGraphics\external\glfw-3.1.2\src\glfw_config.h.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\clayw\Documents\GitHub\23682656_cGraphics\build\external\glfw-3.1.2\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Users/clayw/Documents/GitHub/23682656_cGraphics/external/glfw-3.1.2/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/clayw/Documents/GitHub/23682656_cGraphics -BC:/Users/clayw/Documents/GitHub/23682656_cGraphics/build --check-stamp-file C:/Users/clayw/Documents/GitHub/23682656_cGraphics/build/external/glfw-3.1.2/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-3.31\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\Program Files\CMake\share\cmake-3.31\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\FindDoxygen.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\FindThreads.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\Internal\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\WriteBasicConfigVersionFile.cmake;C:\Users\clayw\Documents\GitHub\23682656_cGraphics\external\glfw-3.1.2\cmake_uninstall.cmake.in;C:\Users\clayw\Documents\GitHub\23682656_cGraphics\external\glfw-3.1.2\docs\Doxyfile.in;C:\Users\clayw\Documents\GitHub\23682656_cGraphics\external\glfw-3.1.2\src\glfw3.pc.in;C:\Users\clayw\Documents\GitHub\23682656_cGraphics\external\glfw-3.1.2\src\glfw3Config.cmake.in;C:\Users\clayw\Documents\GitHub\23682656_cGraphics\external\glfw-3.1.2\src\glfw_config.h.in;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\clayw\Documents\GitHub\23682656_cGraphics\build\external\glfw-3.1.2\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="C:\Users\clayw\Documents\GitHub\23682656_cGraphics\build\ZERO_CHECK.vcxproj">
+      <Project>{223757AF-5263-32C1-830F-0F6B5B461567}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\clayw\Documents\GitHub\23682656_cGraphics\build\external\glfw-3.1.2\examples\boing.vcxproj">
+      <Project>{63378627-AF67-38FA-904C-2F9E4D5CD01A}</Project>
+      <Name>boing</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\clayw\Documents\GitHub\23682656_cGraphics\build\external\glfw-3.1.2\tests\clipboard.vcxproj">
+      <Project>{5C38DAB2-BF3B-3B08-A71B-F410A88DCE19}</Project>
+      <Name>clipboard</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\clayw\Documents\GitHub\23682656_cGraphics\build\external\glfw-3.1.2\tests\cursor.vcxproj">
+      <Project>{6ED82F04-F9ED-3D4B-BBE6-8F6F1597E83C}</Project>
+      <Name>cursor</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\clayw\Documents\GitHub\23682656_cGraphics\build\external\glfw-3.1.2\tests\empty.vcxproj">
+      <Project>{3FDA29F0-A803-30D6-98A5-C5141DB7BB48}</Project>
+      <Name>empty</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\clayw\Documents\GitHub\23682656_cGraphics\build\external\glfw-3.1.2\tests\events.vcxproj">
+      <Project>{C9BBDA00-4C18-3E87-BF94-36F4D49E7613}</Project>
+      <Name>events</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\clayw\Documents\GitHub\23682656_cGraphics\build\external\glfw-3.1.2\tests\gamma.vcxproj">
+      <Project>{098F2EB3-C330-384D-9F2B-0D8425DB5CBF}</Project>
+      <Name>gamma</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\clayw\Documents\GitHub\23682656_cGraphics\build\external\glfw-3.1.2\examples\gears.vcxproj">
+      <Project>{145BF251-17A6-3820-9847-DB6C59C97246}</Project>
+      <Name>gears</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\clayw\Documents\GitHub\23682656_cGraphics\build\external\glfw-3.1.2\src\glfw.vcxproj">
+      <Project>{515A5764-28C3-39CB-BC10-3B00BD50BF50}</Project>
+      <Name>glfw</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\clayw\Documents\GitHub\23682656_cGraphics\build\external\glfw-3.1.2\tests\glfwinfo.vcxproj">
+      <Project>{95A9FF62-DE3A-3F8F-83D4-8110A1B194F6}</Project>
+      <Name>glfwinfo</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\clayw\Documents\GitHub\23682656_cGraphics\build\external\glfw-3.1.2\examples\heightmap.vcxproj">
+      <Project>{8419431F-B44F-3E1A-873D-B19B02FF5376}</Project>
+      <Name>heightmap</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\clayw\Documents\GitHub\23682656_cGraphics\build\external\glfw-3.1.2\tests\iconify.vcxproj">
+      <Project>{115A9B7D-305E-3F09-8336-08165ABF935F}</Project>
+      <Name>iconify</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\clayw\Documents\GitHub\23682656_cGraphics\build\external\glfw-3.1.2\tests\joysticks.vcxproj">
+      <Project>{D5291671-C342-3A4A-9C76-2CE4AD12A85D}</Project>
+      <Name>joysticks</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\clayw\Documents\GitHub\23682656_cGraphics\build\external\glfw-3.1.2\tests\monitors.vcxproj">
+      <Project>{7D45F5E2-117F-3D60-945A-F0406599EF3D}</Project>
+      <Name>monitors</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\clayw\Documents\GitHub\23682656_cGraphics\build\external\glfw-3.1.2\tests\msaa.vcxproj">
+      <Project>{0CFEC05E-940A-3D85-928C-5AFC0B1BA73C}</Project>
+      <Name>msaa</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\clayw\Documents\GitHub\23682656_cGraphics\build\external\glfw-3.1.2\examples\particles.vcxproj">
+      <Project>{5BBDCAD1-A0B5-33F9-B2A7-22C23F15A7C8}</Project>
+      <Name>particles</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\clayw\Documents\GitHub\23682656_cGraphics\build\external\glfw-3.1.2\tests\reopen.vcxproj">
+      <Project>{A8B41B3F-6A1F-32B2-9406-C6D808F1A727}</Project>
+      <Name>reopen</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\clayw\Documents\GitHub\23682656_cGraphics\build\external\glfw-3.1.2\tests\sharing.vcxproj">
+      <Project>{3EDC9D87-1136-3CB2-B922-92E612443CC3}</Project>
+      <Name>sharing</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\clayw\Documents\GitHub\23682656_cGraphics\build\external\glfw-3.1.2\examples\simple.vcxproj">
+      <Project>{5FD54571-E5A6-370A-B19E-F27DDC46680A}</Project>
+      <Name>simple</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\clayw\Documents\GitHub\23682656_cGraphics\build\external\glfw-3.1.2\examples\splitview.vcxproj">
+      <Project>{31C3DF85-F126-30A2-BAD5-0EC2CE9A4BF1}</Project>
+      <Name>splitview</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\clayw\Documents\GitHub\23682656_cGraphics\build\external\glfw-3.1.2\tests\tearing.vcxproj">
+      <Project>{4189EFF9-4C47-3DBC-B661-63BA6C1ABBE9}</Project>
+      <Name>tearing</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\clayw\Documents\GitHub\23682656_cGraphics\build\external\glfw-3.1.2\tests\threads.vcxproj">
+      <Project>{4A34751B-3D38-3C8F-B793-BF34310DF00E}</Project>
+      <Name>threads</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\clayw\Documents\GitHub\23682656_cGraphics\build\external\glfw-3.1.2\tests\title.vcxproj">
+      <Project>{B62A6064-70CF-30D5-A1D8-B4BB292C9286}</Project>
+      <Name>title</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\clayw\Documents\GitHub\23682656_cGraphics\build\external\glfw-3.1.2\examples\wave.vcxproj">
+      <Project>{8E6108F8-2C22-3081-B1DC-75B004106F48}</Project>
+      <Name>wave</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\clayw\Documents\GitHub\23682656_cGraphics\build\external\glfw-3.1.2\tests\windows.vcxproj">
+      <Project>{4918C7A9-F7B0-3431-8962-DBDC537F6C92}</Project>
+      <Name>windows</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

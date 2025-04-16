@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\clayw\Documents\GitHub\23682656_cGraphics\external\glfw-3.1.2\tests\clipboard.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\clayw\Documents\GitHub\23682656_cGraphics\external\glfw-3.1.2\deps\getopt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\clayw\Documents\GitHub\23682656_cGraphics\external\glfw-3.1.2\deps\getopt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\clayw\Documents\GitHub\23682656_cGraphics\external\glfw-3.1.2\tests\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{238D68FB-B37F-35C6-862D-2B808A5D0A2A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4F1D6BAD-1B48-33BB-AC60-3C7A7B01F184}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
