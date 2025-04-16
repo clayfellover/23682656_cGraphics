@@ -1,0 +1,10 @@
+^C:\USERS\CLAYW\DOCUMENTS\GITHUB\23682656_CGRAPHICS\BUILD\CMAKEFILES\EF5FB3DD20FC5CFEBB28AF7E8CA1D212\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/clayw/Documents/GitHub/23682656_cGraphics -BC:/Users/clayw/Documents/GitHub/23682656_cGraphics/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/clayw/Documents/GitHub/23682656_cGraphics/build/Computer_Graphics_Coursework.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

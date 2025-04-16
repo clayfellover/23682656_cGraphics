@@ -16,14 +16,11 @@ void keyboardInput(GLFWwindow *window);
 
 int main( void )
 {
-    // =========================================================================
-    // Window creation - you shouldn't need to change this code
-    // -------------------------------------------------------------------------
-    // Initialise GLFW
+    // GLFW / GLEW Setup 
+
     if( !glfwInit() )
     {
         fprintf( stderr, "Failed to initialize GLFW\n" );
-        getchar();
         return -1;
     }
 
@@ -40,7 +37,6 @@ int main( void )
     
     if( window == NULL ){
         fprintf(stderr, "Failed to open GLFW window.\n");
-        getchar();
         glfwTerminate();
         return -1;
     }
@@ -50,7 +46,6 @@ int main( void )
     glewExperimental = true; // Needed for core profile
     if (glewInit() != GLEW_OK) {
         fprintf(stderr, "Failed to initialize GLEW\n");
-        getchar();
         glfwTerminate();
         return -1;
     }
@@ -58,22 +53,115 @@ int main( void )
     // End of window creation
     // =========================================================================
     
-    // Ensure we can capture keyboard inputs
-    glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+    // Define vertices
+    const float vertices[] = {
+        // x     y     z
+        -0.5f, -0.5f, 0.0f,
+         0.5f, -0.5f, 0.0f,
+         0.0f,  0.5f, 0.0f
+    };
+
+    // Define texture coordinates
+    const float uv[] = {
+        // u   v
+        0.0f, 0.0f,
+        1.0f, 0.0f,
+        0.5f, 1.0f
+    };
+
+    // Define vertex colours
+    const float colours[] = {
+        // R   G     B
+        1.0f, 0.0f, 0.0f,
+        0.0f, 1.0f, 0.0f,
+        0.0f, 0.0f, 1.0f
+    };
+
+    // Load and Use Shaders
+    GLuint shaderProgram = LoadShaders("vertexShader.glsl", "fragmentShader.glsl");
+    glUseProgram(shaderProgram);
+
+    // Create VAO
+    GLuint VAO; 
+    glGenVertexArrays(1, &VAO);
+    glBindVertexArray(VAO);
+
+    // Create VBO 
+    unsigned int VBO;
+    glGenBuffers(1, &VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0); // layout(location = 0)
+    glEnableVertexAttribArray(0);
+
+    // Create texture buffer
+    unsigned int uvBuffer;
+    glGenBuffers(1, &uvBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(uv), uv, GL_STATIC_DRAW);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, (void*)0); // layout(location = 2)
+    glEnableVertexAttribArray(2);
+
+    // Create colour buffer
+    unsigned int colourBuffer;
+    glGenBuffers(1, &colourBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, colourBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(colours), colours, GL_STATIC_DRAW);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)0); // layout(location = 1)
+    glEnableVertexAttribArray(1);
+
+    // Load texture
+    GLuint texture;
+    glGenTextures(1, &texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    const char* path = "../assets/cobblestone.png";
+    int width, height, nChannels;
+    stbi_set_flip_vertically_on_load(true);
+    unsigned char* data = stbi_load(path, &width, &height, &nChannels, 0);
+
+    if (data) {
+        GLenum format = (nChannels == 4) ? GL_RGBA : GL_RGB;
+        glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+    }
+    else {
+        std::cout << "Texture not loaded. Check the path." << std::endl;
+    }
+
+    stbi_image_free(data);
+     
+    // Input mode
+    glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE); 
 
     // Render loop
     while (!glfwWindowShouldClose(window))
     {
-        // Get inputs
+        // inputs
         keyboardInput(window);
-        
-        // Clear the window
-        glClearColor(0.2f, 0.2f, 0.2f, 0.0f);
+
+        // clear window
+        glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-        
-        // Swap buffers
+
+        // bind VAO and Texture
+        glUseProgram(shaderProgram); 
+        glBindVertexArray(VAO); 
+        glUniform1i(glGetUniformLocation(shaderProgram, "textureMap"), 0); 
+        glActiveTexture(GL_TEXTURE0); 
+        glBindTexture(GL_TEXTURE_2D, texture); 
+
+        // make triangle
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+
+        // swap buffers + process window events
         glfwSwapBuffers(window);
         glfwPollEvents();
+        
     }
     
     // Close OpenGL window and terminate GLFW

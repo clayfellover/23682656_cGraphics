@@ -1,0 +1,10 @@
+^C:\USERS\CLAYW\DOCUMENTS\GITHUB\23682656_CGRAPHICS\EXTERNAL\GLFW-3.1.2\EXAMPLES\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/clayw/Documents/GitHub/23682656_cGraphics -BC:/Users/clayw/Documents/GitHub/23682656_cGraphics/build --check-stamp-file C:/Users/clayw/Documents/GitHub/23682656_cGraphics/build/external/glfw-3.1.2/examples/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

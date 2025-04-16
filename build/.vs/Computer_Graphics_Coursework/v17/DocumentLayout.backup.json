@@ -1,0 +1,68 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\build\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E9584CE9-B6CD-3EF4-AFF1-86BAA9A5B84C}|Computer_Graphics_Coursework.vcxproj|C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\source\\coursework.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9584CE9-B6CD-3EF4-AFF1-86BAA9A5B84C}|Computer_Graphics_Coursework.vcxproj|C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\source\\fragmentShader.glsl||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9584CE9-B6CD-3EF4-AFF1-86BAA9A5B84C}|Computer_Graphics_Coursework.vcxproj|C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\source\\vertexShader.glsl||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "vertexShader.glsl",
+              "DocumentMoniker": "C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\source\\vertexShader.glsl",
+              "RelativeDocumentMoniker": "..\\source\\vertexShader.glsl",
+              "ToolTip": "C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\source\\vertexShader.glsl",
+              "RelativeToolTip": "..\\source\\vertexShader.glsl",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-04-16T16:48:03.193Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "fragmentShader.glsl",
+              "DocumentMoniker": "C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\source\\fragmentShader.glsl",
+              "RelativeDocumentMoniker": "..\\source\\fragmentShader.glsl",
+              "ToolTip": "C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\source\\fragmentShader.glsl",
+              "RelativeToolTip": "..\\source\\fragmentShader.glsl",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-04-16T16:48:02.199Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "coursework.cpp",
+              "DocumentMoniker": "C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\source\\coursework.cpp",
+              "RelativeDocumentMoniker": "..\\source\\coursework.cpp",
+              "ToolTip": "C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\source\\coursework.cpp",
+              "RelativeToolTip": "..\\source\\coursework.cpp",
+              "ViewState": "AgIAAGwAAAAAAAAAAAAAAJwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-04-16T16:06:15.116Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
