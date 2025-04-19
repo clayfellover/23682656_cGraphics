@@ -1,16 +1,13 @@
 #version 330 core
 
-// Input
-in vec2 UV;
+out vec4 FragColor;
 
-// Output
-out vec3 colour;
+in vec2 TexCoord;  // Texture coordinates passed from vertex shader
 
-// Uniforms
-uniform sampler2D textureMap;
+uniform sampler2D texture1;  // Single texture
 
 void main()
 {
-    // Sample the texture, and discard the alpha channel (using vec3)
-    colour = vec3(texture(textureMap, UV).rgb);
+    // Sample the texture
+    FragColor = texture(texture1, TexCoord);
 }
