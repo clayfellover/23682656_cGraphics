@@ -94,6 +94,15 @@ int main( void )
       20,21,22, 22,23,20        // top
     };
 
+    // object
+    struct Object {
+        glm::vec3 position;
+        glm::vec3 rotation;
+        glm::vec3 scale;
+        float angle;
+        std::string name;
+    };
+
     // Load and Use Shaders
     GLuint shaderProgram = LoadShaders("vertexShader.glsl", "fragmentShader.glsl");
     glUseProgram(shaderProgram);
@@ -121,11 +130,12 @@ int main( void )
 
     // vertex colours
     const float colours[] = {
-        // R   G     B
-        1.0f, 0.0f, 0.0f,
-        0.0f, 1.0f, 0.0f,
-        0.0f, 0.0f, 1.0f,
-        1.0f, 1.0f, 0.0f
+        1,0,0, 1,0,0, 1,0,0, 1,0,0, // front face red
+        0,1,0, 0,1,0, 0,1,0, 0,1,0, // back face green
+        0,0,1, 0,0,1, 0,0,1, 0,0,1, // left face blue
+        1,1,0, 1,1,0, 1,1,0, 1,1,0, // right face yellow
+        1,0,1, 1,0,1, 1,0,1, 1,0,1, // bottom face magenta
+        0,1,1, 0,1,1, 0,1,1, 0,1,1  // top face cyan
     };
 
     // Create colour buffer
@@ -164,25 +174,35 @@ int main( void )
     }
     stbi_image_free(data);
 
-    // Tell the shader which texture unit to use
+    // Set texture uniform
     glUseProgram(shaderProgram); 
     glUniform1i(glGetUniformLocation(shaderProgram, "textureMap"), 0); 
 
-    // Projection/view/model setup (identity for now)
-    glm::mat4 model = glm::mat4(1.0f); 
-    glm::mat4 view = glm::mat4(1.0f); 
-    glm::mat4 proj = glm::mat4(1.0f); 
+    // Camera setup
+    Camera camera(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, -2.0f));
+    camera.calculateMatrices();
 
-    GLuint modelLoc = glGetUniformLocation(shaderProgram, "model"); 
-    GLuint viewLoc = glGetUniformLocation(shaderProgram, "view"); 
-    GLuint projLoc = glGetUniformLocation(shaderProgram, "projection"); 
+    glm::mat4 view = glm::lookAt(glm::vec3(2.0f, 2.0f, 5.0f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    glm::mat4 proj = glm::perspective(glm::radians(45.0f), 800.f / 600.f, 0.1f, 100.0f);
 
-    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model)); 
-    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view)); 
-    glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj)); 
+    glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "view"), 1, GL_FALSE, glm::value_ptr(view));
+    glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(proj));
      
+    // Object placement
+    glm::vec3 positions[] = {
+            {0.0f, 0.0f, 0.0f}, {2.0f, 5.0f, -10.0f}, {-3.0f, -2.0f, -3.0f},
+            {-4.0f, -2.0f, -8.0f}, {2.0f, 2.0f, -6.0f}, {-4.0f, 3.0f, -8.0f},
+            {0.0f, -2.0f, -5.0f}, {4.0f, 2.0f, -4.0f}, {2.0f, 0.0f, -2.0f}, {-1.0f, 1.0f, -2.0f}
+    };
+
+    std::vector<Object> objects;
+    for (int i = 0; i < 10; ++i) {
+        objects.push_back({ positions[i], glm::vec3(1.0f), glm::vec3(0.5f), Maths::radians(20.0f * i), "cube" });
+    }
+
     // Input mode
     glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE); 
+
 
     // Render loop
     while (!glfwWindowShouldClose(window))
@@ -192,7 +212,8 @@ int main( void )
 
         // clear window
         glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glEnable(GL_DEPTH_TEST);  
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
 
         // Use shader + bind
         glUseProgram(shaderProgram);
@@ -202,8 +223,28 @@ int main( void )
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture);
 
-        // make triangles
-        glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(indices[0]), GL_UNSIGNED_INT, 0);
+        // Loop through all objects and draw
+        for (int i = 0; i < static_cast<unsigned int>(objects.size()); ++i) 
+        {
+            // Model transformation
+            glm::mat4 translate = Maths::translate(objects[i].position); 
+            glm::mat4 scale = Maths::scale(objects[i].scale); 
+            glm::mat4 rotate = glm::rotate(glm::mat4(1.0f), glm::radians(objects[i].angle), objects[i].rotation); 
+            glm::mat4 model = translate * rotate * scale; 
+
+            // MVP matrix
+            glm::mat4 MVP = camera.projection * camera.view * model; 
+
+            // Send MVP matrix to shader
+            glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, &model[0][0]);
+            glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "view"), 1, GL_FALSE, &camera.view[0][0]);
+            glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "projection"), 1, GL_FALSE, &camera.projection[0][0]);
+
+
+            // Bind index buffer and draw
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO); 
+            glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(indices[0]), GL_UNSIGNED_INT, 0); 
+        }
 
         // swap buffers + process window events
         glfwSwapBuffers(window);

@@ -1,2 +1,4 @@
-﻿  coursework.cpp
+﻿  camera.cpp
+  coursework.cpp
+C:\Users\clayw\Documents\GitHub\23682656_cGraphics\source\coursework.cpp(227,27): warning C4018: '<': signed/unsigned mismatch
   Computer_Graphics_Coursework.vcxproj -> C:\Users\clayw\Documents\GitHub\23682656_cGraphics\build\Debug\Computer_Graphics_Coursework.exe

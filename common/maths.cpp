@@ -1,3 +1,6 @@
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
 #include <common/maths.hpp>
 
 // TRANSLATION!!
@@ -37,6 +40,12 @@ glm::mat4 Maths::rotate(float angle)
     rotation[1][1] = glm::cos(radians);   // cos(theta)
 
     return rotation;
+}
+
+// RADIANS!!
+float Maths::radians(float degrees)
+{
+    return degrees * (M_PI / 180.0f);  // M_PI is defined in <cmath>
 }
 
 

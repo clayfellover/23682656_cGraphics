@@ -16,4 +16,7 @@ public:
 
     // Rotation stuff
     static glm::mat4 rotate(float angle);
+
+    // radians!!
+    static float radians(float degrees);
 };
