@@ -3,16 +3,13 @@
   "WorkspaceRootPath": "C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\build\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E9584CE9-B6CD-3EF4-AFF1-86BAA9A5B84C}|Computer_Graphics_Coursework.vcxproj|C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\common\\camera.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{E9584CE9-B6CD-3EF4-AFF1-86BAA9A5B84C}|Computer_Graphics_Coursework.vcxproj|C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\source\\coursework.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E9584CE9-B6CD-3EF4-AFF1-86BAA9A5B84C}|Computer_Graphics_Coursework.vcxproj|C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\common\\camera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E9584CE9-B6CD-3EF4-AFF1-86BAA9A5B84C}|Computer_Graphics_Coursework.vcxproj|C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\source\\coursework.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E9584CE9-B6CD-3EF4-AFF1-86BAA9A5B84C}|Computer_Graphics_Coursework.vcxproj|C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\source\\vertexShader.glsl||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{E9584CE9-B6CD-3EF4-AFF1-86BAA9A5B84C}|Computer_Graphics_Coursework.vcxproj|C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\common\\camera.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,15 +23,15 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "vertexShader.glsl",
-              "DocumentMoniker": "C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\source\\vertexShader.glsl",
-              "RelativeDocumentMoniker": "..\\source\\vertexShader.glsl",
-              "ToolTip": "C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\source\\vertexShader.glsl",
-              "RelativeToolTip": "..\\source\\vertexShader.glsl",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-04-24T21:27:24.266Z",
+              "DocumentIndex": 2,
+              "Title": "camera.hpp",
+              "DocumentMoniker": "C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\common\\camera.hpp",
+              "RelativeDocumentMoniker": "..\\common\\camera.hpp",
+              "ToolTip": "C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\common\\camera.hpp",
+              "RelativeToolTip": "..\\common\\camera.hpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-04-28T21:06:59.696Z",
               "EditorCaption": ""
             },
             {
@@ -45,33 +42,20 @@
               "RelativeDocumentMoniker": "..\\common\\camera.cpp",
               "ToolTip": "C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\common\\camera.cpp",
               "RelativeToolTip": "..\\common\\camera.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAA1AAAAAAAAAA==",
+              "ViewState": "AgIAADMAAAAAAAAAAAAAAF0AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-24T20:41:56.646Z",
+              "WhenOpened": "2025-04-28T21:06:58.559Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "camera.hpp",
-              "DocumentMoniker": "C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\common\\camera.hpp",
-              "RelativeDocumentMoniker": "..\\common\\camera.hpp",
-              "ToolTip": "C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\common\\camera.hpp",
-              "RelativeToolTip": "..\\common\\camera.hpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAhAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-24T20:41:41.576Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "coursework.cpp",
               "DocumentMoniker": "C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\source\\coursework.cpp",
               "RelativeDocumentMoniker": "..\\source\\coursework.cpp",
               "ToolTip": "C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\source\\coursework.cpp",
               "RelativeToolTip": "..\\source\\coursework.cpp",
-              "ViewState": "AgIAAMEAAAAAAAAAAAAAAPIAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAPsAAAAAAAAAAAAUwBoBAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-04-16T16:06:15.116Z",
               "EditorCaption": ""

@@ -18,6 +18,35 @@
 // Function prototypes
 void keyboardInput(GLFWwindow *window);
 
+// time stuff
+float lastFrame = 0.0f;
+bool running = false;
+
+// mouse input stuff
+float lastX = 1024.0f / 2.0f;
+float lastY = 768.0f / 2.0f;
+bool firstMouse = true;
+Camera* cameraPtr = nullptr;
+
+// mouse movement
+void mouse_callback(GLFWwindow* window, double xpos, double ypos)
+{
+    if (firstMouse)
+    {
+        lastX = static_cast<float>(xpos);
+        lastY = static_cast<float>(ypos);
+        firstMouse = false;
+    }
+
+    float xoffset = static_cast<float>(xpos) - lastX;
+    float yoffset = lastY - static_cast<float>(ypos);
+    lastX = static_cast<float>(xpos);
+    lastY = static_cast<float>(ypos);
+
+    if (cameraPtr)
+        cameraPtr->processMouseMovement(xoffset, yoffset);
+}
+
 int main( void )
 {
     // GLFW / GLEW Setup 
@@ -130,12 +159,12 @@ int main( void )
 
     // vertex colours
     const float colours[] = {
-        1,0,0, 1,0,0, 1,0,0, 1,0,0, // front face red
-        0,1,0, 0,1,0, 0,1,0, 0,1,0, // back face green
-        0,0,1, 0,0,1, 0,0,1, 0,0,1, // left face blue
-        1,1,0, 1,1,0, 1,1,0, 1,1,0, // right face yellow
-        1,0,1, 1,0,1, 1,0,1, 1,0,1, // bottom face magenta
-        0,1,1, 0,1,1, 0,1,1, 0,1,1  // top face cyan
+        1,0,0, 1,0,0, 1,0,0, 1,0,0, 
+        0,1,0, 0,1,0, 0,1,0, 0,1,0, 
+        0,0,1, 0,0,1, 0,0,1, 0,0,1, 
+        1,1,0, 1,1,0, 1,1,0, 1,1,0, 
+        1,0,1, 1,0,1, 1,0,1, 1,0,1, 
+        0,1,1, 0,1,1, 0,1,1, 0,1,1 
     };
 
     // Create colour buffer
@@ -180,14 +209,8 @@ int main( void )
 
     // Camera setup
     Camera camera(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, -2.0f));
-    camera.calculateMatrices();
-
-    glm::mat4 view = glm::lookAt(glm::vec3(2.0f, 2.0f, 5.0f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-    glm::mat4 proj = glm::perspective(glm::radians(45.0f), 800.f / 600.f, 0.1f, 100.0f);
-
-    glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "view"), 1, GL_FALSE, glm::value_ptr(view));
-    glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(proj));
-     
+    cameraPtr = &camera;  
+      
     // Object placement
     glm::vec3 positions[] = {
             {0.0f, 0.0f, 0.0f}, {2.0f, 5.0f, -10.0f}, {-3.0f, -2.0f, -3.0f},
@@ -202,7 +225,11 @@ int main( void )
 
     // Input mode
     glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE); 
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); 
+    glfwSetCursorPosCallback(window, mouse_callback);  
 
+    glFrontFace(GL_CW);
+    glEnable(GL_DEPTH_TEST);  
 
     // Render loop
     while (!glfwWindowShouldClose(window))
@@ -210,41 +237,107 @@ int main( void )
         // inputs
         keyboardInput(window);
 
+        // time logic
+        float currentFrame = glfwGetTime(); 
+        float deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
+
+        // Running! (thought this was a better way to handle movement speed)
+        if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_RIGHT_SHIFT) == GLFW_PRESS)
+            running = true;
+        else
+            running = false;
+
+        // Input
+        if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) 
+            camera.processInput('W', deltaTime, running); 
+        if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) 
+            camera.processInput('S', deltaTime, running); 
+        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) 
+            camera.processInput('A', deltaTime, running); 
+        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) 
+            camera.processInput('D', deltaTime, running);  
+        if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS && camera.isGrounded) { 
+            camera.processInput(' ', deltaTime, running);
+        }
+
+        camera.updatePhysics(deltaTime);
+
+        for (Object& obj : objects)
+        {
+            float cameraRadius = 0.25f; 
+
+            for (Object& obj : objects)
+            {
+                // get object's AABB min/max
+                glm::vec3 min = obj.position - obj.scale;
+                glm::vec3 max = obj.position + obj.scale;
+
+                // find closest point on box to camera
+                glm::vec3 closestPoint = glm::clamp(camera.eye, min, max);
+
+                // check distance between camera eye and closest point
+                float distance = glm::distance(camera.eye, closestPoint);
+
+                if (distance < cameraRadius)
+                {
+                    // push camera out of the object
+                    glm::vec3 pushDirection = glm::normalize(camera.eye - closestPoint);
+                    if (glm::length(pushDirection) == 0.0f)
+                    {
+                        // if camera is exactly at the closestPoint, pick an arbitrary direction
+                        pushDirection = glm::vec3(0.0f, 1.0f, 0.0f);
+                    }
+                    camera.eye = closestPoint + pushDirection * cameraRadius;
+
+                    // land the player if touching ground
+                    if (pushDirection.y > 0.5f)
+                    {
+                        camera.isGrounded = true;
+                        camera.verticalVelocity = 0.0f;
+                    }
+                }
+            }
+
+        }
+
+        // Update camera matrices
+        camera.calculateMatrices();
+
         // clear window
-        glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
-        glEnable(GL_DEPTH_TEST);  
+        glClearColor(0.2f, 0.2f, 0.2f, 1.0f); 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
+
 
         // Use shader + bind
         glUseProgram(shaderProgram);
-        glBindVertexArray(VAO);
+
+        // Set view and projection matrices
+        GLuint viewLoc = glGetUniformLocation(shaderProgram, "view"); 
+        GLuint projLoc = glGetUniformLocation(shaderProgram, "projection"); 
+        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &camera.view[0][0]); 
+        glUniformMatrix4fv(projLoc, 1, GL_FALSE, &camera.projection[0][0]);  
 
         // Bind texture
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture);
 
-        // Loop through all objects and draw
-        for (int i = 0; i < static_cast<unsigned int>(objects.size()); ++i) 
+        // Bind VAO
+        glBindVertexArray(VAO); 
+
+        // Draw all objects
+        for (Object& obj : objects) 
         {
-            // Model transformation
-            glm::mat4 translate = Maths::translate(objects[i].position); 
-            glm::mat4 scale = Maths::scale(objects[i].scale); 
-            glm::mat4 rotate = glm::rotate(glm::mat4(1.0f), glm::radians(objects[i].angle), objects[i].rotation); 
-            glm::mat4 model = translate * rotate * scale; 
+            glm::mat4 model = glm::mat4(1.0f); 
+            model = glm::translate(model, obj.position); 
+            model = glm::scale(model, obj.scale); 
+            model = glm::rotate(model, obj.angle, obj.rotation); 
 
-            // MVP matrix
-            glm::mat4 MVP = camera.projection * camera.view * model; 
+            GLuint modelLoc = glGetUniformLocation(shaderProgram, "model"); 
+            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, &model[0][0]); 
 
-            // Send MVP matrix to shader
-            glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, &model[0][0]);
-            glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "view"), 1, GL_FALSE, &camera.view[0][0]);
-            glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "projection"), 1, GL_FALSE, &camera.projection[0][0]);
-
-
-            // Bind index buffer and draw
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO); 
-            glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(indices[0]), GL_UNSIGNED_INT, 0); 
-        }
+            glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0); 
+        } 
 
         // swap buffers + process window events
         glfwSwapBuffers(window);
@@ -261,4 +354,8 @@ void keyboardInput(GLFWwindow *window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
+
 }
+
+
+
