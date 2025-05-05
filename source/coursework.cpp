@@ -1,5 +1,7 @@
 #include <iostream>
 #include <cmath>
+#include <vector>
+#include <string>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -113,6 +115,16 @@ int main( void )
         0, 0,  1, 0,  1, 1,  0, 1,
     };
 
+    // Normals 
+    const float normals[] = {
+         0,0,1,  0,0,1,  0,0,1,  0,0,1,
+         0,0,-1, 0,0,-1, 0,0,-1, 0,0,-1,
+        -1,0,0, -1,0,0, -1,0,0, -1,0,0,
+         1,0,0,  1,0,0,  1,0,0,  1,0,0,
+         0,-1,0, 0,-1,0, 0,-1,0, 0,-1,0,
+         0,1,0,  0,1,0,  0,1,0,  0,1,0
+    };
+
     // Define indices
     const unsigned int indices[] = {
        0, 1, 2,  2, 3, 0,       // front
@@ -156,6 +168,14 @@ int main( void )
     glBufferData(GL_ARRAY_BUFFER, sizeof(uv), uv, GL_STATIC_DRAW);
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, (void*)0); // layout(location = 2)
     glEnableVertexAttribArray(2);
+
+    // normals 
+    unsigned int normalBuffer; 
+    glGenBuffers(1, &normalBuffer); 
+    glBindBuffer(GL_ARRAY_BUFFER, normalBuffer); 
+    glBufferData(GL_ARRAY_BUFFER, sizeof(normals), normals, GL_STATIC_DRAW); 
+    glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, (void*)0); 
+    glEnableVertexAttribArray(3); // layout(location = 3)
 
     // vertex colours
     const float colours[] = {
@@ -223,6 +243,13 @@ int main( void )
         objects.push_back({ positions[i], glm::vec3(1.0f), glm::vec3(0.5f), Maths::radians(20.0f * i), "cube" });
     }
 
+    // light setup
+    glm::vec3 lightDir = glm::normalize(glm::vec3(-0.2f, -1.0f, -0.3f)); 
+    glm::vec3 ambientColour = glm::vec3(0.3f); 
+    glm::vec3 specularColour = glm::vec3(1.0f); 
+    float shininess = 32.0f; 
+
+
     // Input mode
     glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE); 
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); 
@@ -263,6 +290,7 @@ int main( void )
 
         camera.updatePhysics(deltaTime);
 
+        // collision
         for (Object& obj : objects)
         {
             float cameraRadius = 0.25f; 
@@ -312,11 +340,26 @@ int main( void )
         // Use shader + bind
         glUseProgram(shaderProgram);
 
+
         // Set view and projection matrices
         GLuint viewLoc = glGetUniformLocation(shaderProgram, "view"); 
         GLuint projLoc = glGetUniformLocation(shaderProgram, "projection"); 
         glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &camera.view[0][0]); 
         glUniformMatrix4fv(projLoc, 1, GL_FALSE, &camera.projection[0][0]);  
+
+        // light
+        GLint ldLoc = glGetUniformLocation(shaderProgram, "lightDir"); 
+        GLint ambLoc = glGetUniformLocation(shaderProgram, "ambientLightColour"); 
+        GLint specLoc = glGetUniformLocation(shaderProgram, "specularLightColour"); 
+        GLint shinLoc = glGetUniformLocation(shaderProgram, "shininess"); 
+        GLint viewPLoc = glGetUniformLocation(shaderProgram, "viewPos"); 
+
+
+        glUniform3fv(ldLoc, 1, &lightDir[0]); 
+        glUniform3fv(ambLoc, 1, &ambientColour[0]); 
+        glUniform3fv(specLoc, 1, &specularColour[0]); 
+        glUniform1f(shinLoc, shininess); 
+        glUniform3fv(viewPLoc, 1, &camera.eye[0]); 
 
         // Bind texture
         glActiveTexture(GL_TEXTURE0);
