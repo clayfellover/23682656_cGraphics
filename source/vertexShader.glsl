@@ -1,31 +1,57 @@
 #version 330 core
 
-layout(location = 0) in vec3 position;
-layout(location = 1) in vec3 color;
-layout(location = 2) in vec2 uv;
-layout(location = 3) in vec3 normal;
+layout(location = 0) in vec3 position;    
+layout(location = 1) in vec3 colour;     
+layout(location = 2) in vec2 uv;          
+layout(location = 3) in vec3 normal;      
+layout(location = 4) in vec3 tangent;     
 
-out vec2 UV;
-out vec3 vertexColor;
-out vec3 FragPos;
-out vec3 Normal;
+out vec2 UV;                
+out vec3 vertexColour;      
+out vec3 FragPos;           
+out mat3 TBN;               
 
-uniform mat4 model;
-uniform mat4 view;
-uniform mat4 projection;
+uniform mat4 model;          
+uniform mat4 view;           
+uniform mat4 projection;     
 
 void main() {
-    // World-space position of the fragment
-    FragPos = vec3(model * vec4(position, 1.0));
-    
-    // Correctly transform normals by the inverse-transpose of the model
-    Normal = mat3(transpose(inverse(model))) * normal;
+    // Model-view matrix
+    mat4 MV = view * model;
 
-    UV          = uv;
-    vertexColor = color;
+    // Calculate the inverse of the 3x3 part of MV (for directions only)
+    mat3 invMV = transpose(inverse(mat3(MV)));
 
-    gl_Position = projection * view * vec4(FragPos, 1.0);
+    // Transform tangent and normal into view space
+    vec3 t = normalize(invMV * tangent);
+    vec3 n = normalize(invMV * normal);
+
+    // Re-orthogonalize tangent and compute bitangent
+    t = normalize(t - dot(t, n) * n);
+    vec3 b = cross(n, t);
+
+    // Create TBN matrix to convert from view space to tangent space
+    TBN = transpose(mat3(t, b, n));
+
+    // Outputs
+    FragPos = vec3(MV * vec4(position, 1.0));
+    UV = uv;
+    vertexColour = colour;
+
+    // Final position for rasterization
+    gl_Position = projection * vec4(FragPos, 1.0);
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

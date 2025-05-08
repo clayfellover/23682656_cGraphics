@@ -50,10 +50,6 @@ float Maths::radians(float degrees)
 
 
 // ================== START OF MATH STUFF ==================
-// 
-// do i know if i actually need this for the assignment??
-// mm. no not really but doesn't hurt to have it
-// moved it here until further notice. i just needed it out the way whilst i work and stuff
 
 // Defining vectors
 /* printf("Vectors and Matrices\n");
@@ -89,6 +85,16 @@ std::cout << "a - b = " << a - b << std::endl;
 // The identity matrix
 printf("\nThe identity matrix:\n");
 glm::mat4 I;
-std::cout << "I = " << glm::transpose(I) << "\n" << std::endl; */
+std::cout << "I = " << glm::transpose(I) << "\n" << std::endl; 
+
+// Inverse matrices
+printf("\nInverse matrices:\n");
+glm::mat2 invA = glm::inverse(A);
+glm::mat2 invB = glm::inverse(B);
+
+std::cout << "invA = " << glm::transpose(invA) << "\n" << std::endl;
+std::cout << "invB = " << glm::transpose(invB) << "\n" << std::endl;
+std::cout << "invA * A = " << glm::transpose(A * invA) << "\n" << std::endl;
+std::cout << "invB * B = " << glm::transpose(B * invB) << "\n" << std::endl; */
 
 // ================== END OF MATH STUFF ==================

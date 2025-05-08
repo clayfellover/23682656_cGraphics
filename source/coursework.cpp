@@ -226,6 +226,72 @@ int main( void )
     // Set texture uniform
     glUseProgram(shaderProgram); 
     glUniform1i(glGetUniformLocation(shaderProgram, "textureMap"), 0); 
+ 
+    // Load normal map
+    GLuint normalMap; 
+    glGenTextures(1, &normalMap); 
+    glBindTexture(GL_TEXTURE_2D, normalMap); 
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); 
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT); 
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); 
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); 
+
+    int normalWidth, normalHeight, normalChannels; 
+    stbi_set_flip_vertically_on_load(true); 
+    unsigned char* normalData = stbi_load("../assets/pathstone_normalmap.png", &normalWidth, &normalHeight, &normalChannels, 0); 
+    if (normalData) { 
+        GLenum normalFormat = (normalChannels == 4) ? GL_RGBA : GL_RGB; 
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, normalWidth, normalHeight, 0, normalFormat, GL_UNSIGNED_BYTE, normalData); 
+        glGenerateMipmap(GL_TEXTURE_2D); 
+    }
+    else {
+        std::cout << "Failed to load normal map\n"; 
+    }
+    stbi_image_free(normalData); 
+
+    // Load diffuse map 
+    GLuint diffuseMap; 
+    glGenTextures(1, &diffuseMap); 
+    glBindTexture(GL_TEXTURE_2D, diffuseMap); 
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); 
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT); 
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); 
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); 
+
+    int diffuseWidth, diffuseHeight, diffuseChannels; 
+    stbi_set_flip_vertically_on_load(true); 
+    unsigned char* diffuseData = stbi_load("../assets/pathstone_diffusemap.png", &diffuseWidth, &diffuseHeight, &diffuseChannels, 0); 
+    if (diffuseData) { 
+        GLenum diffuseFormat = (diffuseChannels == 4) ? GL_RGBA : GL_RGB; 
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, diffuseWidth, diffuseHeight, 0, diffuseFormat, GL_UNSIGNED_BYTE, diffuseData); 
+        glGenerateMipmap(GL_TEXTURE_2D); 
+    }
+    else { 
+        std::cout << "Failed to load diffuse map\n"; 
+    }
+    stbi_image_free(diffuseData); 
+
+    // Load specular map
+    GLuint specularMap; 
+    glGenTextures(1, &specularMap); 
+    glBindTexture(GL_TEXTURE_2D, specularMap); 
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); 
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);  
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); 
+
+    int specularWidth, specularHeight, specularChannels; 
+    stbi_set_flip_vertically_on_load(true); 
+    unsigned char* specularData = stbi_load("../assets/pathstone_specularmap.png", &specularWidth, &specularHeight, &specularChannels, 0);
+    if (specularData) { 
+        GLenum specularFormat = (specularChannels == 4) ? GL_RGBA : GL_RGB; 
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, specularWidth, specularHeight, 0, specularFormat, GL_UNSIGNED_BYTE, specularData); 
+        glGenerateMipmap(GL_TEXTURE_2D); 
+    }
+    else { 
+        std::cout << "Failed to load specular map\n"; 
+    }
+    stbi_image_free(specularData); 
 
     // Camera setup
     Camera camera(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, -2.0f));
@@ -233,9 +299,8 @@ int main( void )
       
     // Object placement
     glm::vec3 positions[] = {
-            {0.0f, 0.0f, 0.0f}, {2.0f, 5.0f, -10.0f}, {-3.0f, -2.0f, -3.0f},
-            {-4.0f, -2.0f, -8.0f}, {2.0f, 2.0f, -6.0f}, {-4.0f, 3.0f, -8.0f},
-            {0.0f, -2.0f, -5.0f}, {4.0f, 2.0f, -4.0f}, {2.0f, 0.0f, -2.0f}, {-1.0f, 1.0f, -2.0f}
+      {0.0f, 0.0f, -5.0f}, {2.5f, 0.0f, -5.0f}, {5.0f, 0.0f, -5.0f}, {7.5f, 0.0f, -5.0f}, {10.0f, 0.0f, -5.0f},
+      {0.0f, -2.5f, -5.0f}, {2.5f, -2.5f, -5.0f}, {5.0f, -2.5f, -5.0f}, {7.5f, -2.5f, -5.0f}, {10.0f, -2.5f, -5.0f}
     };
 
     std::vector<Object> objects;
@@ -244,11 +309,20 @@ int main( void )
     }
 
     // light setup
-    glm::vec3 lightDir = glm::normalize(glm::vec3(-0.2f, -1.0f, -0.3f)); 
-    glm::vec3 ambientColour = glm::vec3(0.3f); 
-    glm::vec3 specularColour = glm::vec3(1.0f); 
+    glm::vec3 lightDirection(0.0f, -1.0f, 0.0f);  
+    glm::vec3 lightColour(1.0f, 1.0f, 1.0f);
+    glm::vec3 ambientColour(0.05f, 0.05f, 0.05f); 
+    glm::vec3 specularColour(1.0f, 1.0f, 1.0f); 
     float shininess = 32.0f; 
 
+    // Send light data to shaders
+    GLuint programID = shaderProgram;
+
+    glUniform3fv(glGetUniformLocation(programID, "lightDirection"), 1, glm::value_ptr(lightDirection));
+    glUniform3fv(glGetUniformLocation(programID, "lightColour"), 1, glm::value_ptr(lightColour)); 
+    glUniform3fv(glGetUniformLocation(programID, "ambientColour"), 1, glm::value_ptr(ambientColour));  
+    glUniform3fv(glGetUniformLocation(programID, "specularColour"), 1, glm::value_ptr(specularColour));  
+    glUniform1f(glGetUniformLocation(programID, "shininess"), shininess); 
 
     // Input mode
     glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE); 
@@ -257,6 +331,9 @@ int main( void )
 
     glFrontFace(GL_CW);
     glEnable(GL_DEPTH_TEST);  
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, normalMap); 
+ 
 
     // Render loop
     while (!glfwWindowShouldClose(window))
@@ -333,37 +410,50 @@ int main( void )
         camera.calculateMatrices();
 
         // clear window
-        glClearColor(0.2f, 0.2f, 0.2f, 1.0f); 
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
-
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  
 
         // Use shader + bind
-        glUseProgram(shaderProgram);
-
+        glUseProgram(shaderProgram); 
 
         // Set view and projection matrices
         GLuint viewLoc = glGetUniformLocation(shaderProgram, "view"); 
         GLuint projLoc = glGetUniformLocation(shaderProgram, "projection"); 
         glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &camera.view[0][0]); 
-        glUniformMatrix4fv(projLoc, 1, GL_FALSE, &camera.projection[0][0]);  
+        glUniformMatrix4fv(projLoc, 1, GL_FALSE, &camera.projection[0][0]); 
 
         // light
-        GLint ldLoc = glGetUniformLocation(shaderProgram, "lightDir"); 
-        GLint ambLoc = glGetUniformLocation(shaderProgram, "ambientLightColour"); 
-        GLint specLoc = glGetUniformLocation(shaderProgram, "specularLightColour"); 
-        GLint shinLoc = glGetUniformLocation(shaderProgram, "shininess"); 
-        GLint viewPLoc = glGetUniformLocation(shaderProgram, "viewPos"); 
+        glm::vec3 lightDirection(0.0f, -1.0f, 0.0f);  
+        glm::vec3 lightColour(1.0f, 1.0f, 1.0f);    
+        glm::vec3 ambientColour(0.2f, 0.2f, 0.2f);
+        glm::vec3 specularColour(1.0f, 1.0f, 1.0f);  
+        float shininess = 32.0f;
 
-
-        glUniform3fv(ldLoc, 1, &lightDir[0]); 
-        glUniform3fv(ambLoc, 1, &ambientColour[0]); 
-        glUniform3fv(specLoc, 1, &specularColour[0]); 
-        glUniform1f(shinLoc, shininess); 
-        glUniform3fv(viewPLoc, 1, &camera.eye[0]); 
+        glUniform3fv(glGetUniformLocation(shaderProgram, "lightDirection"), 1, glm::value_ptr(lightDirection)); 
+        glUniform3fv(glGetUniformLocation(shaderProgram, "lightColour"), 1, glm::value_ptr(lightColour));
+        glUniform3fv(glGetUniformLocation(shaderProgram, "ambientLightColour"), 1, glm::value_ptr(ambientColour));  
+        glUniform3fv(glGetUniformLocation(shaderProgram, "specularLightColour"), 1, glm::value_ptr(specularColour));  
+        glUniform1f(glGetUniformLocation(shaderProgram, "shininess"), shininess);  
 
         // Bind texture
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture);
+
+        // Bind the diffuse map
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, diffuseMap);
+        glUniform1i(glGetUniformLocation(shaderProgram, "diffuseMap"), 1); 
+
+        // Bind the normal map
+        glActiveTexture(GL_TEXTURE0);  
+        glBindTexture(GL_TEXTURE_2D, normalMap); 
+        glUniform1i(glGetUniformLocation(shaderProgram, "normalMap"), 0); 
+
+        // Bind the specular map
+        glActiveTexture(GL_TEXTURE2);
+        glBindTexture(GL_TEXTURE_2D, specularMap);
+        glUniform1i(glGetUniformLocation(shaderProgram, "specularMap"), 2); 
+
 
         // Bind VAO
         glBindVertexArray(VAO); 
