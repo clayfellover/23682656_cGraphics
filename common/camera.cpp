@@ -13,11 +13,11 @@ Camera::Camera(const glm::vec3 Eye, const glm::vec3 Target)
     isGrounded = true;
 }
 
-void Camera::calculateMatrices()
+/*void Camera::calculateMatrices()
 {
     view = glm::lookAt(eye, eye + front, up);
     projection = glm::perspective(fov, aspect, near, far);
-}
+}*/
 
 void Camera::updateCameraVectors()
 {
@@ -93,5 +93,14 @@ void Camera::updatePhysics(float deltaTime)
     }
 }
 
+void Camera::quaternionCamera()
+{
+    Quaternion newOrientation(-pitch, yaw);
+    orientation = Maths::SLERP(orientation, newOrientation, 0.2f); 
+    projection = glm::perspective(fov, aspect, near, far); 
+    right = glm::vec3(view[0][0], view[1][0], view[2][0]);  
+    up = glm::vec3(view[0][1], view[1][1], view[2][1]); 
+    front = -glm::vec3(view[0][2], view[1][2], view[2][2]); 
+}
 
 

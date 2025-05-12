@@ -407,7 +407,7 @@ int main( void )
         }
 
         // Update camera matrices
-        camera.calculateMatrices();
+        camera.quaternionCamera();
 
         // clear window
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);

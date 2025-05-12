@@ -26,7 +26,7 @@ public:
 
     // movement + look parameters
     float speed = 5.0f;
-    float yaw = -90.0f;
+    float yaw = 0.0f;
     float pitch = 0.0f;
     float sensitivity = 0.1f;
 
@@ -36,10 +36,12 @@ public:
     bool isGrounded = true;
     float jumpStrength = 8.0f;
 
+    // Quaternion camera
+    Quaternion orientation = Quaternion(pitch, yaw); 
     Camera(const glm::vec3 eye, const glm::vec3 target);
 
     // view/projection matrices
-    void calculateMatrices();
+    void quaternionCamera(); 
 
     // wasd
     void processInput(char key, float deltaTime, bool running);
@@ -52,6 +54,9 @@ public:
 
     // jump
     void updatePhysics(float deltaTime);
+
+    // quaternion camera
+    void quaternionCamera(); 
 };
 
 
