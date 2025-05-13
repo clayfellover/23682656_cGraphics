@@ -40,8 +40,11 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
         firstMouse = false;
     }
 
+    float sensitivity = 0.05f;
     float xoffset = static_cast<float>(xpos) - lastX;
     float yoffset = lastY - static_cast<float>(ypos);
+    xoffset *= sensitivity; 
+    yoffset *= sensitivity; 
     lastX = static_cast<float>(xpos);
     lastY = static_cast<float>(ypos);
 
@@ -294,8 +297,20 @@ int main( void )
     stbi_image_free(specularData); 
 
     // Camera setup
-    Camera camera(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, -2.0f));
-    cameraPtr = &camera;  
+    Camera camera(glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, -2.0f)); 
+    cameraPtr = &camera; 
+
+    // Set pitch and yaw based on initial direction
+    camera.yaw = -90.0f; 
+    camera.pitch = 0.0f; 
+
+    // Update vectors so front/right/up are correct
+    camera.updateCameraVectors(); 
+
+    // Set initial quaternion orientation
+    camera.orientation = Quaternion(-camera.pitch, camera.yaw); 
+    camera.targetOrientation = camera.orientation; 
+
       
     // Object placement
     glm::vec3 positions[] = {

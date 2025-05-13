@@ -4,6 +4,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <common/maths.hpp>
 
+
 class Camera
 {
 public:
@@ -39,6 +40,8 @@ public:
     // Quaternion camera
     Quaternion orientation = Quaternion(pitch, yaw); 
     Camera(const glm::vec3 eye, const glm::vec3 target);
+    Quaternion targetOrientation;
+
 
     // view/projection matrices
     void quaternionCamera(); 
@@ -55,8 +58,6 @@ public:
     // jump
     void updatePhysics(float deltaTime);
 
-    // quaternion camera
-    void quaternionCamera(); 
 };
 
 

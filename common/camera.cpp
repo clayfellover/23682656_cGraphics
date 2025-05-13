@@ -1,4 +1,7 @@
 #include <common/camera.hpp>
+#include <glm/glm.hpp>
+#include <glm/gtc/quaternion.hpp>
+#include <glm/gtx/quaternion.hpp>
 
 Camera::Camera(const glm::vec3 Eye, const glm::vec3 Target)
 {
@@ -13,23 +16,19 @@ Camera::Camera(const glm::vec3 Eye, const glm::vec3 Target)
     isGrounded = true;
 }
 
-/*void Camera::calculateMatrices()
-{
-    view = glm::lookAt(eye, eye + front, up);
-    projection = glm::perspective(fov, aspect, near, far);
-}*/
-
 void Camera::updateCameraVectors()
 {
-    glm::vec3 newFront;
-    newFront.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-    newFront.y = sin(glm::radians(pitch));
-    newFront.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-    front = glm::normalize(newFront);
+    // Convert the custom Quaternion to a glm::quat
+    glm::quat q(orientation.x, orientation.y, orientation.z, orientation.w); 
 
-    right = glm::normalize(glm::cross(front, worldUp));
-    up = glm::normalize(glm::cross(right, front));
-}
+    // Rotate the forward vector by the quaternion
+    glm::vec3 newFront = glm::rotate(q, glm::vec3(0.0f, 0.0f, -1.0f)); 
+    front = glm::normalize(newFront); 
+
+    // Calculate the right and up vectors
+    right = glm::normalize(glm::cross(front, worldUp)); 
+    up = glm::normalize(glm::cross(right, front)); 
+} 
 
 void Camera::processInput(char key, float deltaTime, bool running)
 {
@@ -39,14 +38,28 @@ void Camera::processInput(char key, float deltaTime, bool running)
         velocity *= 2.0f;
     }
 
+    // Convert the custom Quaternion to glm::quat
+    glm::quat q(orientation.x, orientation.y, orientation.z, orientation.w);
+
+    // Rotate the forward vector by the quaternion 
+    glm::vec3 forward = glm::rotate(q, glm::vec3(0.0f, 0.0f, -1.0f));  // Forward (negative z)
+    glm::vec3 right = glm::rotate(q, glm::vec3(1.0f, 0.0f, 0.0f));   // Right (positive x)
+    glm::vec3 up = glm::rotate(q, glm::vec3(0.0f, 1.0f, 0.0f));      // Up (positive y)
+
+    // Normalize vectors to prevent fast movement diagonally
+    forward = glm::normalize(forward);
+    right = glm::normalize(right);
+    up = glm::normalize(up);
+
+    // Move the camera using the rotated vectors
     if (key == 'W')
-        eye += front * velocity;
+        eye += forward * velocity;  // Move forward along the forward vector
     if (key == 'S')
-        eye -= front * velocity;
+        eye -= forward * velocity;  // Move backward along the forward vector
     if (key == 'A')
-        eye -= right * velocity;
+        eye -= right * velocity;    // Move left along the right vector
     if (key == 'D')
-        eye += right * velocity;
+        eye += right * velocity;    // Move right along the right vector
 
     if (key == ' ')
     {
@@ -60,21 +73,21 @@ void Camera::processInput(char key, float deltaTime, bool running)
 
 void Camera::processMouseMovement(float xoffset, float yoffset, bool constrainPitch)
 {
-    xoffset *= sensitivity;
-    yoffset *= sensitivity;
+    xoffset *= sensitivity; 
+    yoffset *= sensitivity; 
 
-    yaw += xoffset;
-    pitch += yoffset;
-
+    yaw += xoffset; 
+    pitch += yoffset; 
+     
     if (constrainPitch)
-    {
-        if (pitch > 89.0f)
-            pitch = 89.0f;
-        if (pitch < -89.0f)
-            pitch = -89.0f;
+    { 
+        if (pitch > 89.0f) 
+            pitch = 89.0f; 
+        if (pitch < -89.0f) 
+            pitch = -89.0f; 
     }
 
-    updateCameraVectors();
+    targetOrientation = Quaternion(-pitch, yaw); 
 }
 
 void Camera::updatePhysics(float deltaTime)
@@ -95,12 +108,26 @@ void Camera::updatePhysics(float deltaTime)
 
 void Camera::quaternionCamera()
 {
-    Quaternion newOrientation(-pitch, yaw);
-    orientation = Maths::SLERP(orientation, newOrientation, 0.2f); 
-    projection = glm::perspective(fov, aspect, near, far); 
-    right = glm::vec3(view[0][0], view[1][0], view[2][0]);  
-    up = glm::vec3(view[0][1], view[1][1], view[2][1]); 
-    front = -glm::vec3(view[0][2], view[1][2], view[2][2]); 
+    // Smoothly interpolate toward the target orientation
+    orientation = Maths::SLERP(orientation, targetOrientation, 0.2f);
+
+    // Convert custom Quaternion to glm::quat
+    glm::quat glmQuat = glm::quat(orientation.w, orientation.x, orientation.y, orientation.z);
+
+    // Convert to rotation matrix
+    glm::mat4 rotationMatrix = glm::toMat4(glmQuat);
+
+    // Create the view matrix
+    glm::mat4 translation = glm::translate(glm::mat4(1.0f), -eye);
+    view = rotationMatrix * translation;
+
+    // Update direction vectors from rotation
+    front = glm::normalize(glm::vec3(rotationMatrix[2] * -1.0f));
+    right = glm::normalize(glm::vec3(rotationMatrix[0]));
+    up = glm::normalize(glm::vec3(rotationMatrix[1]));
+
+    // Projection matrix
+    projection = glm::perspective(fov, aspect, near, far);
 }
 
 
