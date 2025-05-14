@@ -1,4 +1,3 @@
-﻿  camera.cpp
-  coursework.cpp
-C:\Users\clayw\Documents\GitHub\23682656_cGraphics\source\coursework.cpp(360,28): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+﻿  coursework.cpp
+C:\Users\clayw\Documents\GitHub\23682656_cGraphics\source\coursework.cpp(353,28): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   Computer_Graphics_Coursework.vcxproj -> C:\Users\clayw\Documents\GitHub\23682656_cGraphics\build\Debug\Computer_Graphics_Coursework.exe

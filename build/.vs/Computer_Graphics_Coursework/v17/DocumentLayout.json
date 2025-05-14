@@ -3,13 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\build\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E9584CE9-B6CD-3EF4-AFF1-86BAA9A5B84C}|Computer_Graphics_Coursework.vcxproj|C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\common\\camera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{E9584CE9-B6CD-3EF4-AFF1-86BAA9A5B84C}|Computer_Graphics_Coursework.vcxproj|C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\source\\fragmentShader.glsl||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E9584CE9-B6CD-3EF4-AFF1-86BAA9A5B84C}|Computer_Graphics_Coursework.vcxproj|C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\source\\coursework.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E9584CE9-B6CD-3EF4-AFF1-86BAA9A5B84C}|Computer_Graphics_Coursework.vcxproj|C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\common\\camera.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{E9584CE9-B6CD-3EF4-AFF1-86BAA9A5B84C}|Computer_Graphics_Coursework.vcxproj|C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\source\\vertexShader.glsl||{8B382828-6202-11D1-8870-0000F87579D2}"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,41 +20,28 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "camera.hpp",
-              "DocumentMoniker": "C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\common\\camera.hpp",
-              "RelativeDocumentMoniker": "..\\common\\camera.hpp",
-              "ToolTip": "C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\common\\camera.hpp",
-              "RelativeToolTip": "..\\common\\camera.hpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-05-12T07:15:38.843Z",
+              "DocumentIndex": 1,
+              "Title": "vertexShader.glsl",
+              "DocumentMoniker": "C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\source\\vertexShader.glsl",
+              "RelativeDocumentMoniker": "..\\source\\vertexShader.glsl",
+              "ToolTip": "C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\source\\vertexShader.glsl",
+              "RelativeToolTip": "..\\source\\vertexShader.glsl",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-05-14T12:20:26.184Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "camera.cpp",
-              "DocumentMoniker": "C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\common\\camera.cpp",
-              "RelativeDocumentMoniker": "..\\common\\camera.cpp",
-              "ToolTip": "C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\common\\camera.cpp",
-              "RelativeToolTip": "..\\common\\camera.cpp",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAIwC8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-05-12T07:15:37.695Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "coursework.cpp",
-              "DocumentMoniker": "C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\source\\coursework.cpp",
-              "RelativeDocumentMoniker": "..\\source\\coursework.cpp",
-              "ToolTip": "C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\source\\coursework.cpp",
-              "RelativeToolTip": "..\\source\\coursework.cpp",
-              "ViewState": "AgIAABEAAAAAAAAAAAAAACcAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-16T16:06:15.116Z",
+              "Title": "fragmentShader.glsl",
+              "DocumentMoniker": "C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\source\\fragmentShader.glsl",
+              "RelativeDocumentMoniker": "..\\source\\fragmentShader.glsl",
+              "ToolTip": "C:\\Users\\clayw\\Documents\\GitHub\\23682656_cGraphics\\source\\fragmentShader.glsl",
+              "RelativeToolTip": "..\\source\\fragmentShader.glsl",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAACEAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-05-14T12:20:15.186Z",
               "EditorCaption": ""
             }
           ]

@@ -23,34 +23,34 @@ uniform float shininess;
 uniform vec3 viewPos;
 
 void main() {
-    // Base albedo from texture
+    // texture
     vec3 texCol = texture(textureMap, UV).rgb;
 
-    // Get normal from normal map and transform to world/view space
+    // get normal from normal map and transform to world/view space
     vec3 normalSample = texture(normalMap, UV).rgb;
     vec3 tangentNormal = normalize(normalSample * 2.0 - 1.0);
     vec3 norm = normalize(TBN * tangentNormal);
 
-    // Specular strength from specular map
+    // specular strength from specular map
     float specularStrength = texture(specularMap, UV).r;
 
-    // Ambient component
+    // ambient component
     vec3 ambient = ambientLightColour * texCol;
 
-    // Directional light
+    // directional light
     vec3 lightDir = normalize(-lightDirection); 
 
-    // Diffuse component
+    // diffuse component
     float diff = max(dot(norm, lightDir), 0.0);
     vec3 diffuse = diff * lightColour * texCol;
 
-    // Specular component (Phong)
+    // specular component 
     vec3 viewDir = normalize(viewPos - FragPos);
     vec3 reflectDir = reflect(-lightDir, norm);
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
     vec3 specular = spec * specularStrength * specularLightColour;
 
-    // Final color
+    // colour yay
     vec3 result = ambient + diffuse + specular;
     FragColour = vec4(result, 1.0);
 }

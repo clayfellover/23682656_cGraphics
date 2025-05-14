@@ -93,23 +93,16 @@ int main( void )
 
     // Define vertex positions
     const float vertices[] = {
-        // Front
         -1, -1,  1,   1, -1,  1,   1,  1,  1,   -1,  1,  1,
-        // Back
         -1, -1, -1,   1, -1, -1,   1,  1, -1,   -1,  1, -1,
-        // Left
         -1, -1, -1,  -1, -1,  1,  -1,  1,  1,  -1,  1, -1,
-        // Right
          1, -1, -1,   1, -1,  1,   1,  1,  1,   1,  1, -1,
-         // Bottom
-         -1, -1, -1,   1, -1, -1,   1, -1,  1,  -1, -1,  1,
-         // Top
-         -1,  1, -1,   1,  1, -1,   1,  1,  1,  -1,  1,  1,
+        -1, -1, -1,   1, -1, -1,   1, -1,  1,  -1, -1,  1,
+        -1,  1, -1,   1,  1, -1,   1,  1,  1,  -1,  1,  1,
     };
 
     // Define texture coordinates
     const float uv[] = {
-        // 6 faces, 4 vertices per face
         0, 0,  1, 0,  1, 1,  0, 1,  
         0, 0,  1, 0,  1, 1,  0, 1,
         0, 0,  1, 0,  1, 1,  0, 1,
@@ -405,7 +398,7 @@ int main( void )
                     glm::vec3 pushDirection = glm::normalize(camera.eye - closestPoint);
                     if (glm::length(pushDirection) == 0.0f)
                     {
-                        // if camera is exactly at the closestPoint, pick an arbitrary direction
+                        // if camera is exactly at the closestPoint, pick a direction
                         pushDirection = glm::vec3(0.0f, 1.0f, 0.0f);
                     }
                     camera.eye = closestPoint + pushDirection * cameraRadius;
@@ -436,19 +429,6 @@ int main( void )
         GLuint projLoc = glGetUniformLocation(shaderProgram, "projection"); 
         glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &camera.view[0][0]); 
         glUniformMatrix4fv(projLoc, 1, GL_FALSE, &camera.projection[0][0]); 
-
-        // light
-        glm::vec3 lightDirection(0.0f, -1.0f, 0.0f);  
-        glm::vec3 lightColour(1.0f, 1.0f, 1.0f);    
-        glm::vec3 ambientColour(0.2f, 0.2f, 0.2f);
-        glm::vec3 specularColour(1.0f, 1.0f, 1.0f);  
-        float shininess = 32.0f;
-
-        glUniform3fv(glGetUniformLocation(shaderProgram, "lightDirection"), 1, glm::value_ptr(lightDirection)); 
-        glUniform3fv(glGetUniformLocation(shaderProgram, "lightColour"), 1, glm::value_ptr(lightColour));
-        glUniform3fv(glGetUniformLocation(shaderProgram, "ambientLightColour"), 1, glm::value_ptr(ambientColour));  
-        glUniform3fv(glGetUniformLocation(shaderProgram, "specularLightColour"), 1, glm::value_ptr(specularColour));  
-        glUniform1f(glGetUniformLocation(shaderProgram, "shininess"), shininess);  
 
         // Bind texture
         glActiveTexture(GL_TEXTURE0);

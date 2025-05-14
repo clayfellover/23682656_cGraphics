@@ -16,29 +16,29 @@ uniform mat4 view;
 uniform mat4 projection;     
 
 void main() {
-    // Model-view matrix
+    // model-view matrix
     mat4 MV = view * model;
 
-    // Calculate the inverse of the 3x3 part of MV (for directions only)
+    // calculate the inverse of the 3x3 part of MV (for directions only)
     mat3 invMV = transpose(inverse(mat3(MV)));
 
-    // Transform tangent and normal into view space
+    // transform tangent and normal into view space
     vec3 t = normalize(invMV * tangent);
     vec3 n = normalize(invMV * normal);
 
-    // Re-orthogonalize tangent and compute bitangent
+    // re-orthogonalize tangent and compute bitangent
     t = normalize(t - dot(t, n) * n);
     vec3 b = cross(n, t);
 
-    // Create TBN matrix to convert from view space to tangent space
+    // create TBN matrix to convert from view space to tangent space
     TBN = transpose(mat3(t, b, n));
 
-    // Outputs
+    // outputs
     FragPos = vec3(MV * vec4(position, 1.0));
     UV = uv;
     vertexColour = colour;
 
-    // Final position for rasterization
+    // final position for rasterization
     gl_Position = projection * vec4(FragPos, 1.0);
 }
 

@@ -18,14 +18,14 @@ Camera::Camera(const glm::vec3 Eye, const glm::vec3 Target)
 
 void Camera::updateCameraVectors()
 {
-    // Convert the custom Quaternion to a glm::quat
+    // convert to glm::quat
     glm::quat q(orientation.x, orientation.y, orientation.z, orientation.w); 
 
-    // Rotate the forward vector by the quaternion
+    // rotate the forward vector by the quaternion
     glm::vec3 newFront = glm::rotate(q, glm::vec3(0.0f, 0.0f, -1.0f)); 
     front = glm::normalize(newFront); 
 
-    // Calculate the right and up vectors
+    // calculate the right and up vectors
     right = glm::normalize(glm::cross(front, worldUp)); 
     up = glm::normalize(glm::cross(right, front)); 
 } 
@@ -38,28 +38,28 @@ void Camera::processInput(char key, float deltaTime, bool running)
         velocity *= 2.0f;
     }
 
-    // Convert the custom Quaternion to glm::quat
+    // convert to glm::quat
     glm::quat q(orientation.x, orientation.y, orientation.z, orientation.w);
 
-    // Rotate the forward vector by the quaternion 
-    glm::vec3 forward = glm::rotate(q, glm::vec3(0.0f, 0.0f, -1.0f));  // Forward (negative z)
-    glm::vec3 right = glm::rotate(q, glm::vec3(1.0f, 0.0f, 0.0f));   // Right (positive x)
-    glm::vec3 up = glm::rotate(q, glm::vec3(0.0f, 1.0f, 0.0f));      // Up (positive y)
+    // rotate the forward vector by the quaternion 
+    glm::vec3 forward = glm::rotate(q, glm::vec3(0.0f, 0.0f, -1.0f));  
+    glm::vec3 right = glm::rotate(q, glm::vec3(1.0f, 0.0f, 0.0f));   
+    glm::vec3 up = glm::rotate(q, glm::vec3(0.0f, 1.0f, 0.0f));   
 
-    // Normalize vectors to prevent fast movement diagonally
+    // normalize vectors to prevent fast movement diagonally
     forward = glm::normalize(forward);
     right = glm::normalize(right);
     up = glm::normalize(up);
 
-    // Move the camera using the rotated vectors
+    // move the camera using the rotated vectors
     if (key == 'W')
-        eye += forward * velocity;  // Move forward along the forward vector
+        eye += forward * velocity;
     if (key == 'S')
-        eye -= forward * velocity;  // Move backward along the forward vector
+        eye -= forward * velocity;  
     if (key == 'A')
-        eye -= right * velocity;    // Move left along the right vector
+        eye -= right * velocity;  
     if (key == 'D')
-        eye += right * velocity;    // Move right along the right vector
+        eye += right * velocity; 
 
     if (key == ' ')
     {
@@ -108,25 +108,25 @@ void Camera::updatePhysics(float deltaTime)
 
 void Camera::quaternionCamera()
 {
-    // Smoothly interpolate toward the target orientation
+    // interpolate towards target orientation
     orientation = Maths::SLERP(orientation, targetOrientation, 0.2f);
 
-    // Convert custom Quaternion to glm::quat
+    // convert to glm::quat
     glm::quat glmQuat = glm::quat(orientation.w, orientation.x, orientation.y, orientation.z);
 
-    // Convert to rotation matrix
+    // convert to rotation matrix
     glm::mat4 rotationMatrix = glm::toMat4(glmQuat);
 
-    // Create the view matrix
+    // create the view matrix
     glm::mat4 translation = glm::translate(glm::mat4(1.0f), -eye);
     view = rotationMatrix * translation;
 
-    // Update direction vectors from rotation
+    // update direction vectors from rotation
     front = glm::normalize(glm::vec3(rotationMatrix[2] * -1.0f));
     right = glm::normalize(glm::vec3(rotationMatrix[0]));
     up = glm::normalize(glm::vec3(rotationMatrix[1]));
 
-    // Projection matrix
+    // projection matrix
     projection = glm::perspective(fov, aspect, near, far);
 }
 
